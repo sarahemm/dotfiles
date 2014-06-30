@@ -1,0 +1,61 @@
+; authentication info is kept separately so most of the tfrc can go into github
+/load ~/.tfrc_worlds
+
+; log everything automatically, mark the hours and rotate daily
+/set inflog_fileformat=~/tflogs/[W].%F.txt
+/require ~/.tf/assoc.tf
+/require ~/.tf/infinilog.tf
+/inflog_hourly
+/inflog_status
+
+/load tools.tf
+
+/set isize=1
+/set wrap=on
+/set wraplog=off
+/set wrapspace=4
+/set matching=regexp
+/set oldslash=off
+/set sub=on
+/set qecho=on
+/set qprefix=+
+/set cleardone=on
+
+/hook on
+
+; all pages and whispers show up green (needs to be set up on the mu* end as well)
+/def -p10099 -t'^page> '                               -aCgreen pagemsg
+/def -p10098 -t'^whisper> '                            -aCgreen whispermsg
+
+; anyone looking at me shows up bold
+/def -p10095 -t'^\s*\#\#\s+\S+\s+looked at you'           -aB lookedat
+
+; anything aimed at me shows up yellow
+/def -p10070 -F -t'^You'                -PBCyellow playeryou
+
+; capture room info (only works in unlinked rooms currently)
+/def -mregexp -Ft"^([^\(]+)\(\#\d+[A-Z]+\)$" room_desc_hook = /set room_desc=%P1
+/def -mregexp -Ft"^[^\(]+\((\#\d+[A-Z]+)\)$" room_dbref_hook = /set room_dbref=%P1
+/def -mregexp -Ft"^\[ Obvious Exits: ([^\]]+) \]$" room_exits_hook = /set room_exits=exits: %P1
+
+; two status bars that look like irssi
+/set status_height=2
+/set status_attr=Cbgblue,Cwhite
+/set status_pad= 
+
+; first status bar shows character, world, flags, time
+/status_add -B@world char_status:10
+/status_rm @more
+/status_add -r0 -A@clock @more:8:Br
+
+; second status bar shows room info
+/status_add -r1 -A room_dbref: 10
+/status_add -r1 -A room_desc: 25
+/status_add -r1 -A room_exits
+
+; one line input box and two line status for general chatter
+/def inorm = /set isize 1 %; /set status_height=2
+; 4 or 6 line input box and single line status for longer pose composition
+/def ipose = /set isize 4 %; /set status_height=1
+/def iposebig = /set isize 6 %; /set status_height=1
+
