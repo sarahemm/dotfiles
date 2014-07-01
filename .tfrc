@@ -23,6 +23,10 @@
 
 /hook on
 
+; pgup/pgdn scroll a half screen not a full screen, so context is retained
+/def key_pgdn = /dokey_hpage
+/def key_pgup = /dokey_hpageback
+
 ; all pages and whispers show up green (needs to be set up on the mu* end as well)
 /def -p10099 -t'^page> '                               -aCgreen pagemsg
 /def -p10098 -t'^whisper> '                            -aCgreen whispermsg
