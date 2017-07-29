@@ -34,6 +34,9 @@
 ; anyone looking at me shows up bold
 /def -p10095 -t'^\s*\#\#\s+\S+\s+looked at you'           -aB lookedat
 
+; anyone cinfoing me shows up bold
+/def -p10096 -t'^\[.*cinfo\'s you.\]$'           -aB cinfoed
+
 ; anything aimed at me shows up yellow
 /def -p10070 -F -t'^You'                -PBCyellow playeryou
 
