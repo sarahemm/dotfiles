@@ -62,6 +62,8 @@
 
 ; one line input box and two line status for general chatter
 /def inorm = /set isize 1 %; /set status_height=2
+; 2 line input box and single line status for medium conversations
+/def imid = /set isize 2 %; /set status_height=1
 ; 4 or 6 line input box and single line status for longer pose composition
 /def ipose = /set isize 4 %; /set status_height=1
 /def iposebig = /set isize 6 %; /set status_height=1
